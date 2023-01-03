@@ -1,0 +1,16 @@
+{
+  "name": "samar_web",
+  "version": "1.0.0",
+  "description": "Personal Website for Samar Ahmed",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd server && node app.js"
+  },
+  "author": "Oliver Erdmann - Github: @Polsander",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
