@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import {Navigate, useNavigate} from 'react-router-dom';
+
+import {authenticate} from '../../../assets/helpers/authenticate'
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
@@ -11,6 +14,7 @@ const server_url = import.meta.env.VITE_API_BASE_URL
 
 
 const ModalPopUp = () => {
+    const navigate = useNavigate();
 
     const [show, setShow] = useState(true);
     const handleClose = () => setShow(false);
@@ -21,6 +25,7 @@ const ModalPopUp = () => {
         const input = { password: e.target.form[0].value };
         const passwordJSON = JSON.stringify(input);
 
+        // POST REQUEST
         const res = await fetch(`${server_url}/admin`,
             {
                 method: 'POST',
@@ -38,9 +43,18 @@ const ModalPopUp = () => {
         if (response.access) {
             localStorage.setItem("accessToken", response.webToken);
             e.target.form[0].value = ''; // this also works!
+            navigate('/');
         }
-
+        // will add some state here to make the U.I. look fancy :)
     }
+    // GET REQUESTS
+    useEffect(()=> {
+        const authenticateUser = async() => {
+           const response =  await authenticate();
+           console.log(response)
+        } 
+        authenticateUser()
+    },[])
 
     return (
         <div>

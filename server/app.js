@@ -18,8 +18,10 @@ app.get('/', (req,res)=> {
 
 // Route Handling //
 const loginRoutes = require('./routes/login');
+const authRoutes = require('./routes/auth');
 
 app.use('/admin', loginRoutes);
+app.use('/auth', authRoutes);
 
 
 const PORT = process.env.PORT || 3000;
