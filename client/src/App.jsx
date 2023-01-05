@@ -1,4 +1,5 @@
 import { react } from 'react'
+import { Outlet } from 'react-router-dom'
 import './App.css'
 
 import Container from 'react-bootstrap/Container'
@@ -16,6 +17,9 @@ function App() {
       <Container>
         <ProjectRedirect/>
       </Container>
+      <div>
+        <Outlet/>
+      </div>
     </div>
   )
 }

@@ -1,7 +1,14 @@
 const express = require('express');
 const cors = require('cors');
+// We need the if statement below to use our local dotenv variables
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
 
 const app = express();
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.use(cors());
 
