@@ -9,6 +9,11 @@ app.get('/', (req,res)=> {
     res.send('Hello World!')
 });
 
+// Route Handling //
+const loginRoutes = require('./routes/login');
+
+app.use('/admin', loginRoutes);
+
 
 const PORT = process.env.PORT || 3000;
 
