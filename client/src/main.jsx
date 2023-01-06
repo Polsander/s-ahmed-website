@@ -5,7 +5,9 @@ import './index.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Login from './Pages/admin/Login'
+import Login from './Pages/admin/Login';
+import Template from './Template';
+import Projects from './Pages/projects/Projects';
 
 import {
   createBrowserRouter,
@@ -22,6 +24,17 @@ const router = createBrowserRouter([
         element: <Login />,
       },
     ],
+  },
+  {
+    path: "/admin/dashboard", // need to make sure users cannot access this route individually
+    element: <Template/>,
+    children: [
+      {
+        path:'projects',
+        element: <Projects/>
+      }
+
+    ]
   }
 
 ])

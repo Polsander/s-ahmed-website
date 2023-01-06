@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 // We need the if statement below to use our local dotenv variables
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
@@ -12,7 +13,24 @@ app.use(bodyParser.json())
 
 app.use(cors());
 
-app.get('/', (req,res)=> {
+//Database Connections
+const db_URL = process.env.DB_URL || 'mongodb://localhost:27017/samar'
+
+mongoose.set('strictQuery', false);
+mongoose.connect(db_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", () => {
+    console.log("Database connected");
+});
+
+// Default Route
+app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
