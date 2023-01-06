@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/admin/Login';
 import Template from './Template';
 import Projects from './Pages/projects/Projects';
+import CreateProject from './Pages/projects/CreateProject';
 
 import {
   createBrowserRouter,
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path:'projects',
         element: <Projects/>
+      },
+      {
+        path:'projects/create',
+        element: <CreateProject/>
       }
 
     ]
