@@ -1,13 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+
+import { authenticate } from '../assets/helpers/authenticate';
+
 
 const Navigation = () => {
+
+    const [logout, setLogout] = useState(null);
+
+    // Check if User is authenticated
+    useEffect(() => {
+        const authenticateUser = async () => {
+            const response = await authenticate();
+            if (response.isAuthenticated) {
+                console.log('how many?')
+                setLogout(
+                    <Nav className='fs-3 ms-auto'>
+                        <Nav.Link className='px-3' onClick={logoutHandler}>Logout</Nav.Link>
+                    </Nav>
+                );
+            }
+        }
+        authenticateUser();
+    },[]);
+    //handlers
+    const logoutHandler = () => {
+        localStorage.removeItem("accessToken");
+        setLogout(null);
+    }
+
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
@@ -20,6 +44,7 @@ const Navigation = () => {
                         <Nav.Link className='px-3' href="#link">Resume</Nav.Link>
                         <Nav.Link className='px-3' href="#link">Contact</Nav.Link>
                     </Nav>
+                    {logout}
                 </Navbar.Collapse>
             </Container>
         </Navbar>

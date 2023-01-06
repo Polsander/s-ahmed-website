@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
 
 import { authenticate } from '../../../assets/helpers/authenticate'
 
@@ -14,7 +13,6 @@ const server_url = import.meta.env.VITE_API_BASE_URL
 
 
 const ModalPopUp = () => {
-    const navigate = useNavigate();
 
     const [show, setShow] = useState(true);
     const handleClose = () => setShow(false);
@@ -43,7 +41,7 @@ const ModalPopUp = () => {
         if (response.access) {
             localStorage.setItem("accessToken", response.webToken);
             e.target.form[0].value = ''; // this also works!
-            navigate('/');
+            window.location.href='/'
         }
         // will add some state here to make the U.I. look fancy :)
     }
