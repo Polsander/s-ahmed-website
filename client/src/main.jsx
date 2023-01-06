@@ -8,11 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/admin/Login'
 
 import {
-  createHashRouter,
+  createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,

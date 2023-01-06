@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import {Navigate, useNavigate} from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-import {authenticate} from '../../../assets/helpers/authenticate'
+import { authenticate } from '../../../assets/helpers/authenticate'
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
@@ -48,13 +48,17 @@ const ModalPopUp = () => {
         // will add some state here to make the U.I. look fancy :)
     }
     // GET REQUESTS
-    useEffect(()=> {
-        const authenticateUser = async() => {
-           const response =  await authenticate();
-           console.log(response)
-        } 
+    useEffect(() => {
+        const authenticateUser = async () => {
+            const response = await authenticate();
+            const message = response.message;
+            const isAuthenticated = response.isAuthenticated;
+            if (isAuthenticated) {
+                return navigate('/');
+            }
+        }
         authenticateUser()
-    },[])
+    }, [])
 
     return (
         <div>
