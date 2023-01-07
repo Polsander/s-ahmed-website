@@ -37,9 +37,11 @@ app.get('/', (req, res) => {
 // Route Handling //
 const loginRoutes = require('./routes/login');
 const authRoutes = require('./routes/auth');
+const uploadImageRoutes = require('./routes/upload');
 
 app.use('/admin', loginRoutes);
 app.use('/auth', authRoutes);
+app.use('/upload',uploadImageRoutes)
 
 
 const PORT = process.env.PORT || 3000;

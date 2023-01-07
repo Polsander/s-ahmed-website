@@ -4,10 +4,13 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 
+import { useNavigate } from 'react-router-dom'
+
 import { authenticate } from '../assets/helpers/authenticate';
 
 
 const Navigation = () => {
+    const navigate = useNavigate();
 
     const [logout, setLogout] = useState(null);
 
@@ -16,7 +19,6 @@ const Navigation = () => {
         const authenticateUser = async () => {
             const response = await authenticate();
             if (response.isAuthenticated) {
-                console.log('how many?')
                 setLogout(
                     <Nav className='fs-3 ms-auto'>
                         <Nav.Link className='px-3' onClick={logoutHandler}>Logout</Nav.Link>
@@ -30,6 +32,7 @@ const Navigation = () => {
     const logoutHandler = () => {
         localStorage.removeItem("accessToken");
         setLogout(null);
+        navigate('/');
     }
 
     return (
