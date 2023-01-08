@@ -33,7 +33,7 @@ const CreateProject = () => {
     //Handlers
     const addTextHandler = () => {
         const component =
-            <Form.Group name='text' className='mt-2' key={blockCounter} controlId={blockCounter}>
+            <Form.Group className='mt-2' name='text' key={blockCounter} controlId={blockCounter}>
                 <Form.Control name='text' as='textarea' />
             </Form.Group>
         const textFormComponent = {
@@ -41,7 +41,6 @@ const CreateProject = () => {
             component,
         }
         formJSX.push(textFormComponent);
-        console.log(formJSX);
         setFormBody(formJSX);
         setBlockCounter(blockCounter + 1);
     }
@@ -59,13 +58,11 @@ const CreateProject = () => {
             component,
         };
         formJSX.push(imageFormComponent);
-        console.log(formJSX);
         setFormBody(formJSX);
         setBlockCounter(blockCounter + 1);
     }
 
     const uploadImageHandler = async (event) => {
-        console.log(blockCounter)
         const file = event.target.files[0];
         const data = new FormData();
         data.append('file', file);
@@ -79,6 +76,7 @@ const CreateProject = () => {
         for (let i = 0; i < formBody.length; i++) {
             if (formBody[i].id === blockCounter) {
                 const image =
+                //imperative that the name attribute comes second
                     <Form.Group className='d-flex justify-content-center' name='image' key={response}>
                         <Image name='image' fluid src={response} />
                     </Form.Group>
@@ -101,6 +99,7 @@ const CreateProject = () => {
         });
         const response = await res.text();
         const image =
+        // have the name attribute come second
             <Form.Group className='d-flex justify-content-center my-3' name='mainImage' key={response}>
                 <Image name='mainImage' fluid src={response} />
             </Form.Group>
@@ -125,7 +124,7 @@ const CreateProject = () => {
 
         //Iterating and deciding whether we have image or textarea
         for (let i = 2; i < grabDivs.length; i++) {
-            const divElement = grabDivs[i].attributes[0].nodeValue;
+            const divElement = grabDivs[i].attributes[1].nodeValue;
             if (divElement === 'text') {
                 const element = { element: 'Text', content: grabDivs[i].children[0].value }
                 arr.push(element);
