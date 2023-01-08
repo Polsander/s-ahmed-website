@@ -9,6 +9,7 @@ import Login from './Pages/admin/Login';
 import Template from './Template';
 import Projects from './Pages/projects/Projects';
 import CreateProject from './Pages/projects/CreateProject';
+import ViewProject from './Pages/projects/ViewProject';
 
 import {
   createBrowserRouter,
@@ -23,6 +24,16 @@ const router = createBrowserRouter([
       {
         path:"admin",
         element: <Login />,
+      },
+    ],
+  },
+  {
+    path:"/project/:projectId",
+    element: <Template/>,
+    children: [
+      {
+        path:"",
+        element:<ViewProject/>,
       },
     ],
   },
