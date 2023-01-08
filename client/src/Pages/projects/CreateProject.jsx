@@ -14,10 +14,19 @@ const server_url = import.meta.env.VITE_API_BASE_URL;
 const CreateProject = () => {
     const [formBody, setFormBody] = useState([]);
     const [blockCounter, setBlockCounter] = useState(0);
+    const [thumbnail, setThumbnail] = useState(null)
+
+
 
     useEffect(() => {
         authenticateAndReroute();
-    })
+        const defaultThumbnail =
+            <Form.Group name='mainImage' className='mt-5' controlId='main-image'>
+                <Form.Label>Header Image (your main thumbnail)</Form.Label>
+                <Form.Control type='file' name='mainImage' onInput={uploadThumbnailHandler} />
+            </Form.Group>
+        setThumbnail(defaultThumbnail);
+    },[])
 
     const formJSX = formBody // this will be what collects the variables and object ID's containing the JSX of what gets put into the formBody
 
@@ -70,35 +79,58 @@ const CreateProject = () => {
         for (let i = 0; i < formBody.length; i++) {
             if (formBody[i].id === blockCounter) {
                 const image =
-                <Form.Group name='image' key={response}>
-                    <Image name='image'  fluid src={response} />
-                </Form.Group>
+                    <Form.Group className='d-flex justify-content-center' name='image' key={response}>
+                        <Image name='image' fluid src={response} />
+                    </Form.Group>
                 const formBodyCopy = [...formBody]; // deep copy is not necessary for this to work, json parsing results in error on second image load
                 formBodyCopy[i].component = image;
                 setFormBody(formBodyCopy);
             }
         }
+    };
+
+    const uploadThumbnailHandler = async (event) => {
+        const file = event.target.files[0];
+        const data = new FormData();
+        data.append('mainImage', file);
+        const res = await fetch(`${server_url}/upload/thumbnail`, {
+            method: 'POST',
+            mode: 'cors',
+            // don't send headers for file posts
+            body: data,
+        });
+        const response = await res.text();
+        const image =
+            <Form.Group className='d-flex justify-content-center my-3' name='mainImage' key={response}>
+                <Image name='mainImage' fluid src={response} />
+            </Form.Group>
+
+        setThumbnail(image);
     }
+
 
     const postHandler = (e) => {
         e.preventDefault();
         // console.log(e);
         // console.log(e.target)
-        console.log(e.target.getElementsByTagName("div") )
-        const test = e.target.getElementsByTagName("div");
+        const grabDivs = e.target.getElementsByTagName("div");
 
         //checking and retrieving post title
-        console.log(test[0].attributes[0].nodeValue)// this returns title
-        console.log(test[0].children[1].value) // returns input value
+        const title = grabDivs[0].children[1].value;
         console.log('-----This section done-----')
 
         //checking and receiving thumbnail
-            // will work on this later!!
-        
-        //Iterating and deciding whether we have image or textarea
-        console.log(test[2].attributes[0].nodeValue)
-        console.log(test[3].attributes[0].nodeValue)
+        // will work on this later!!
 
+        //Iterating and deciding whether we have image or textarea
+        console.log(test[2].attributes[0].nodeValue) // image
+        console.log(test[3].attributes[0].nodeValue) // text
+
+        //Next we add an "if" statement to go over and check this
+        //if we have an image:
+        console.log(test[2].children[0].currentSrc)
+        //if we have text area
+        console.log(test[3].children[0].value)
         //idea, we can make a JS object that orders each element on how it must be displayed and later send it as JSON to the backend
     }
 
@@ -112,10 +144,7 @@ const CreateProject = () => {
                         <Form.Label>Project Title</Form.Label>
                         <Form.Control type='text' />
                     </Form.Group>
-                    <Form.Group name='mainImage' className='mt-5' controlId='main-image'>
-                        <Form.Label>Header Image (your main thumbnail)</Form.Label>
-                        <Form.Control type='file' onInput={uploadImageHandler} />
-                    </Form.Group>
+                    {thumbnail}
                     {!formBody[0] ? null : formBody.map((element) => { return element.component })}
                     <Button className='mt-4' type="submit" >Post</Button>
                 </Form>

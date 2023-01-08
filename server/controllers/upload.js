@@ -9,3 +9,8 @@ module.exports.uploadImage = (req, res) => {
     
     res.send(path_link)
 }
+
+module.exports.uploadImageHeader = (req,res) => {
+    const path_link = req.file.path;
+    res.send(path_link);
+}
