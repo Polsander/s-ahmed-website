@@ -14,3 +14,8 @@ module.exports.uploadImageHeader = (req,res) => {
     const path_link = req.file.path;
     res.send(path_link);
 }
+
+module.exports.uploadProject = (req,res) => {
+    console.log(req.body);
+    res.send('success');
+}

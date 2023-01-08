@@ -26,7 +26,7 @@ const CreateProject = () => {
                 <Form.Control type='file' name='mainImage' onInput={uploadThumbnailHandler} />
             </Form.Group>
         setThumbnail(defaultThumbnail);
-    },[])
+    }, [])
 
     const formJSX = formBody // this will be what collects the variables and object ID's containing the JSX of what gets put into the formBody
 
@@ -108,29 +108,48 @@ const CreateProject = () => {
         setThumbnail(image);
     }
 
-
-    const postHandler = (e) => {
+    //need to make middleware for this post request on the backend to authenticate user
+    // FUTURE IMPROVEMENT
+    const postHandler = async (e) => {
         e.preventDefault();
-        // console.log(e);
-        // console.log(e.target)
         const grabDivs = e.target.getElementsByTagName("div");
+        const arr = [] // initialize empty array for objects
 
         //checking and retrieving post title
-        const title = grabDivs[0].children[1].value;
-        console.log('-----This section done-----')
+        const title = { element: 'Title', content: grabDivs[0].children[1].value }; // this is already a string
+        arr.push(title);
 
         //checking and receiving thumbnail
-        // will work on this later!!
+        const thumbnail = { element: 'Thumbnail', src_url: `${grabDivs[1].children[0].currentSrc}` };
+        arr.push(thumbnail);
 
         //Iterating and deciding whether we have image or textarea
-        console.log(test[2].attributes[0].nodeValue) // image
-        console.log(test[3].attributes[0].nodeValue) // text
+        for (let i = 2; i < grabDivs.length; i++) {
+            const divElement = grabDivs[i].attributes[0].nodeValue;
+            if (divElement === 'text') {
+                const element = { element: 'Text', content: grabDivs[i].children[0].value }
+                arr.push(element);
+            }
+            else if (divElement === 'image') {
+                const element = { element: 'Image', content: `${grabDivs[i].children[0].currentSrc}` }
+                arr.push(element);
+            }
+            // need error handeling here (Future improvement?)
+        };
 
-        //Next we add an "if" statement to go over and check this
-        //if we have an image:
-        console.log(test[2].children[0].currentSrc)
-        //if we have text area
-        console.log(test[3].children[0].value)
+        //sending data and handling POST request
+        const data = JSON.stringify(arr);
+        const request = await fetch(`${server_url}/upload/project`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data
+        });
+
+        const response = await request.text();
+        console.log(response);
         //idea, we can make a JS object that orders each element on how it must be displayed and later send it as JSON to the backend
     }
 
