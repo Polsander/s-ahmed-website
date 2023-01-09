@@ -12,3 +12,12 @@ module.exports.getProject = async (req, res) => {
     const formattedData = JSON.stringify(project);
     res.send(formattedData);
 };
+
+module.exports.deleteProject = async (req,res) => {
+    try {
+        await Project.findByIdAndDelete(req.params.id);
+        res.status(200).json({message: 'Project Deleted!'})
+    } catch(e) {
+        res.status(400).json({error: e})
+    }
+}

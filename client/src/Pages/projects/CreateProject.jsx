@@ -148,7 +148,15 @@ const CreateProject = () => {
         });
 
         const response = await request.text();
-        console.log(response);
+        setBlockCounter(0);
+        setFormBody([]);
+        grabDivs[0].children[1].value = '';
+        const defaultThumbnail =
+            <Form.Group name='mainImage' className='mt-5' controlId='main-image'>
+                <Form.Label>Header Image (your main thumbnail)</Form.Label>
+                <Form.Control type='file' name='mainImage' onInput={uploadThumbnailHandler} />
+            </Form.Group>
+        setThumbnail(defaultThumbnail);
         //idea, we can make a JS object that orders each element on how it must be displayed and later send it as JSON to the backend
     }
 

@@ -65,7 +65,7 @@ const ListProjects = () => {
                 <h4 className='text-center'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni consectetur assumenda reiciendis eligendi facilis aperiam, eos quo voluptas eaque excepturi officia incidunt nulla voluptatem? Exercitationem quibusdam laudantium recusandae facere rem.</h4>
             </Row>
             <div className='d-flex mt-5 pt-5 justify-content-center'>
-                <Row>
+                <Row className='w-100'>
                     {!projects ? null : projects.map((element)=>{return <Col key={element.props.id} sm={12} md={6} lg={4}>{element}</Col>})}
                 </Row>
             </div>

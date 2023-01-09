@@ -38,7 +38,7 @@ const Projects = () => {
             createHTML(response);
         }
         fetchAllProjects();
-    }, [])
+    }, [projects])
 
     const createHTML = (data) => {
         const cards = []// initialize empty array that will hold JSX for each card
@@ -58,7 +58,7 @@ const Projects = () => {
                     <Card.Footer className='d-flex justify-content-center'>
                         <Row >
                             <Col>
-                                <Button variant='danger'><FaTrash /></Button>
+                                <Button variant='danger' onClick={()=>{deleteProjectHandler(data[i]._id)}}><FaTrash /></Button>
                             </Col>
                         </Row>
                     </Card.Footer>
@@ -67,6 +67,20 @@ const Projects = () => {
         }
         setProjects(cards)
     }
+
+    //handlers
+    const deleteProjectHandler = async(id) => {
+        const request = await fetch(`${server_url}/projects/delete/${id}`, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await request.text();
+        console.log(response);
+    }
+
     return (
         <div>
             <Container>
@@ -78,7 +92,7 @@ const Projects = () => {
                     </Col>
                 </Row>
                 <div className='d-flex mt-5 pt-5 justify-content-center'>
-                    <Row>
+                    <Row className='w-100'>
                         {!projects ? null : projects.map((element) => { return <Col key={element.props.id} sm={12} md={6} lg={4}>{element}</Col> })}
                     </Row>
                 </div>
