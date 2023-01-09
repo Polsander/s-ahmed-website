@@ -38,10 +38,12 @@ app.get('/', (req, res) => {
 const loginRoutes = require('./routes/login');
 const authRoutes = require('./routes/auth');
 const uploadImageRoutes = require('./routes/upload');
+const projectDisplayRoutes = require('./routes/projects');
 
 app.use('/admin', loginRoutes);
 app.use('/auth', authRoutes);
-app.use('/upload',uploadImageRoutes)
+app.use('/upload',uploadImageRoutes);
+app.use('/projects',projectDisplayRoutes);
 
 
 const PORT = process.env.PORT || 3000;

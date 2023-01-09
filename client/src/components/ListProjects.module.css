@@ -1,0 +1,12 @@
+
+.image {
+    max-height: 18em;
+    height: 18em !important;
+    /* min-height: 15em; */
+    /* max-width: 8em; */
+    /* min-width: 8em; */
+}
+
+.cardDimensions {
+    max-width: 26em;
+}
