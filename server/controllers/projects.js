@@ -7,6 +7,8 @@ module.exports.getAll = async (req, res) => {
     res.send(formattedData);
 };
 
-module.exports.getProject = (req, res) => {
-    res.send('Got your project!');
+module.exports.getProject = async (req, res) => {
+    const project = await Project.findById(req.params.id);
+    const formattedData = JSON.stringify(project);
+    res.send(formattedData);
 };
