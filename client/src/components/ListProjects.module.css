@@ -10,3 +10,8 @@
 .cardDimensions {
     max-width: 26em;
 }
+
+.cardBehaviour:hover {
+    transform: scale(1.01);
+    cursor: pointer;
+}

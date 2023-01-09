@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
@@ -15,6 +15,7 @@ const server_url = import.meta.env.VITE_API_BASE_URL;
 
 const ListProjects = () => {
     const [projects, setProjects] = useState(null)
+    const navigate = useNavigate();
 
     useEffect(() => {
         //get project data
@@ -36,11 +37,11 @@ const ListProjects = () => {
 
     const createHTML = (data) => {
         const cards = []// initialize empty array that will hold JSX for each card
-        const cardStyle = `${styles.cardDimensions} mt-2 mb-2 mx-3`
+        const cardStyle = `${styles.cardDimensions} ${styles.cardBehaviour} mt-2 mb-2 mx-3`
 
         for (let i = 0; i < data.length; i++) {
             const JSX =
-                <Card className={cardStyle} id={data[i]._id} key={data[i]._id}>
+                <Card className={cardStyle} id={data[i]._id} key={data[i]._id} onClick={()=>cardClickHandler(data[i]._id)}>
                     <Card.Header className='text-center' as="h3">
                         {data[i].title}
                     </Card.Header>
@@ -54,6 +55,10 @@ const ListProjects = () => {
         }
         setProjects(cards)
     }
+
+    //handlers
+    const cardClickHandler = (id) => {navigate(`/project/${id}`)}
+
     return (
         <div className='mt-5 pt-5'>
             <Row>
@@ -61,7 +66,7 @@ const ListProjects = () => {
             </Row>
             <div className='d-flex mt-5 pt-5 justify-content-center'>
                 <Row>
-                    {!projects ? null : projects.map((element)=>{return <Col key={element.props.id} sm={12} md={4}>{element}</Col>})}
+                    {!projects ? null : projects.map((element)=>{return <Col key={element.props.id} sm={12} md={6} lg={4}>{element}</Col>})}
                 </Row>
             </div>
         </div>
