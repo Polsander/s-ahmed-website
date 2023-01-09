@@ -1,1 +1,8 @@
-
+/* .page-container {
+    min-height: 100vh;
+    position: relative;
+} */
+.spacing {
+    min-height: 100vh;
+    position: inherit;
+}
