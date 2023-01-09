@@ -60,7 +60,7 @@ const ListProjects = () => {
     const cardClickHandler = (id) => {navigate(`/project/${id}`)}
 
     return (
-        <div className='mt-5 pt-5'>
+        <div className='my-5 pt-5'>
             <Row>
                 <h4 className='text-center'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni consectetur assumenda reiciendis eligendi facilis aperiam, eos quo voluptas eaque excepturi officia incidunt nulla voluptatem? Exercitationem quibusdam laudantium recusandae facere rem.</h4>
             </Row>

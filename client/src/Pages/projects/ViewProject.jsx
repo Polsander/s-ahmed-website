@@ -33,7 +33,7 @@ const ViewProject = () => {
         const elements = [] //initialize empty element array
         const title =
             <Row>
-                <h1>
+                <h1 className='text-center'>
                     {postData.title}
                 </h1>
             </Row>
@@ -55,8 +55,8 @@ const ViewProject = () => {
                 elements.push(text);
             } else if (body[i].element === "Image") {
                 const image =
-                    <Row>
-                        <Image fluid src={body[i].content} />
+                    <Row className='justify-content-center'>
+                        <Image className={styles.regularImage} fluid src={body[i].content} />
                     </Row>
                 elements.push(image);
             }
