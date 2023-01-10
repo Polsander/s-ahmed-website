@@ -25,7 +25,7 @@ const Navigation = () => {
                         <Nav.Link className='px-3' onClick={logoutHandler}>Logout</Nav.Link>
                     </Nav>
                 );
-                setProjectLinkToDash('/admin/dashboard/projects');
+                setProjectLinkToDash('/#/admin/dashboard/projects');
             }
         }
         authenticateUser();
@@ -41,11 +41,11 @@ const Navigation = () => {
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
-                <Navbar.Brand className='fs-2' href="/">Samar Ahmed</Navbar.Brand>
+                <Navbar.Brand className='fs-2' href="/#/">Samar Ahmed</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto pe-3 fs-3">
-                        <Nav.Link className='px-3' href="/about">About</Nav.Link>
+                        <Nav.Link className='px-3' href="/#/about">About</Nav.Link>
                         <Nav.Link className='px-3' href={projectLinkToDash}>Projects</Nav.Link>
                         <Nav.Link className='px-3' href="#link">Resume</Nav.Link>
                         <Nav.Link className='px-3' href="mailto:s357ahme@uwaterloo.ca">Contact</Nav.Link>
