@@ -24,7 +24,7 @@ const Intro = () => {
                 </Col>
                 <Col className='pt-5 d-flex align-items-center'>
                     <Row>
-                        <h1 className={introTextStyle}>Some Random Text Here</h1>
+                        <h1 className={introTextStyle}>Testing Testing Testing</h1>
                         <p className='ps-md-5'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus esse vitae perspiciatis quia, illo asperiores quis obcaecati non delectus officiis, consectetur quibusdam voluptates facilis ea veritatis culpa earum voluptate aut.</p>
                     </Row>
                 </Col>
